@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "version": "1.0.0",
+  "name": "Le Robert",
+  "description": "Sélectionnez un mot pour rechercher sa définition dans Le Robert.",
+  "author": "Nhân Trí",
+  "homepage_url": "https://github.com/nhantrichuyenanh/Le-Robert",
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "64": "icon.png",
+    "128": "icon.png",
+    "256": "icon.png"
+  },
+  "background": {"scripts": ["background.js"]},
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": false
+  },
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "storage"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{29729b59-145a-4d87-a37b-c41d0960215c}",
+      "strict_min_version": "109.0"
+    }
+  }
+}
