@@ -130,13 +130,7 @@
             pointer-events: none;
         }
 
-        .info {
-            font-size: 0.85rem;
-            text-align: center;
-            padding: 12px;
-        }
-
-        /* Dark Mode */
+        /* DARK MODE */
         @media (prefers-color-scheme: dark) {
             body {
                 background: #1c1b22;
@@ -169,16 +163,26 @@
             .radio-option:hover {
                 background: color-mix(in srgb, AccentColor 10%, transparent);
             }
-
-            .info {
-                color: #bbb;
-            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
+
+        <!-- Language Selection -->
+        <div class="card" style="padding: 0px 16px;">
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="langFrench" name="language" value="french" checked>
+                    <label for="langFrench">Français</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="langEnglish" name="language" value="english">
+                    <label for="langEnglish">English</label>
+                </div>
+            </div>
+        </div>
 
         <!-- Open Mode Selection -->
         <div class="card" style="padding: 0px 16px;">
@@ -194,7 +198,7 @@
             </div>
         </div>
 
-        <!-- Window Settings (shown only when Window mode is selected) -->
+        <!-- Window Settings -->
         <div class="window-settings" id="windowSettings">
             <!-- Window Size -->
             <div class="card">
@@ -217,11 +221,12 @@
         </div>
 
         <!-- Info -->
-        <div class="card info">
+        <div class="card" style="text-align: center; padding: 12px;">
             Les modifications s'appliquent immédiatement.
         </div>
     </div>
 
     <script src="options.js"></script>
 </body>
+
 </html>

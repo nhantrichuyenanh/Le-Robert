@@ -1,24 +1,22 @@
-// context menu entry
 browser.contextMenus.create({
   title: "Le Robert: %s",
   contexts: ["selection"],
   onclick: (info, tab) => {
     if (info) {
       const selectedText = info.selectionText;
-      const leRobertURL = `https://dictionnaire.lerobert.com/definition/${selectedText}`;
-      lookupSelection(selectedText, leRobertURL, tab);
+      lookupSelection(selectedText, tab);
     }
   }
 });
 
-// get user preferences from storage with defaults
 async function getUserSettings() {
   try {
     const result = await browser.storage.sync.get({
       windowSize: 50,
       aspectRatioWidth: 1,
       aspectRatioHeight: 1,
-      openMode: 'window'
+      openMode: 'window',
+      language: 'french'
     });
     return result;
   } catch (error) {
@@ -26,17 +24,24 @@ async function getUserSettings() {
       windowSize: 50,
       aspectRatioWidth: 1,
       aspectRatioHeight: 1,
-      openMode: 'window'
+      openMode: 'window',
+      language: 'french'
     };
   }
 }
 
-// calculate window dimensions based on user settings
+function generateURL(selectedText, language) {
+  if (language === 'english') {
+    return `https://dictionnaire.lerobert.com/en/definition/${selectedText}`;
+  } else {
+    return `https://dictionnaire.lerobert.com/definition/${selectedText}`;
+  }
+}
+
 async function calculateWindowDimensions() {
   const settings = await getUserSettings();
   const sizeRatio = settings.windowSize / 100;
 
-  // use available screen size for sizing
   const screenWidth = window.screen.availWidth;
   const screenHeight = window.screen.availHeight;
 
@@ -71,9 +76,10 @@ async function onCreated(windowInfo) {
 }
 
 // lookup the selected word based on user preferences
-async function lookupSelection(text, url, currentTab) {
+async function lookupSelection(text, currentTab) {
   if (text) {
     const settings = await getUserSettings();
+    const url = generateURL(text, settings.language);
 
     if (settings.openMode === 'tab') {
       // open in new tab
@@ -83,7 +89,7 @@ async function lookupSelection(text, url, currentTab) {
       }).catch(error => {
       });
     } else {
-      // open in popup window (default behavior)
+      // open in popup window
       browser.windows.create({
         url: url,
         type: "popup"
