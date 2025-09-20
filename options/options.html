@@ -1,232 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Popup Window Options</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #fff;
-            color: #15141a;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Popup Window Options</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #fff;
+            color: #15141a;
+        }
 
-        .container {
-            width: 340px;
-            margin: 0 auto;
-        }
+        .container {
+            width: 340px;
+            margin: 0 auto;
+        }
 
-        .card {
-            background: #f7f7f9;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-        }
+        .card {
+            background: #f7f7f9;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
 
-        .card label {
-            font-size: 1rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-            display: block;
-        }
+        .card label {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
 
-        .label-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-        .size-display {
-            font-size: 0.9rem;
-            color: #666;
-        }
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
 
-        input[type="range"] {
-            width: 100%;
-            height: 6px;
-            border-radius: 6px;
-            background: #ddd;
-            outline: none;
-            appearance: none;
-        }
+        .ratio-inputs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+        }
 
-        input[type="range"]::-webkit-slider-thumb {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #0060df;
-            cursor: pointer;
-            appearance: none;
-            border: none;
-        }
+        .ratio-inputs input {
+            width: 48px;
+            height: 42px;
+            font-size: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            background: #fff;
+            color: #15141a;
+            text-align: center;
+        }
 
-        .ratio-inputs {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 10px;
-        }
+        .ratio-separator {
+            font-size: 1.2rem;
+            align-self: center;
+        }
 
-        .ratio-inputs input {
-            width: 48px;
-            height: 42px;
-            font-size: 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            background: #fff;
-            color: #15141a;
-            text-align: center;
-        }
+        .radio-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            height: 42px;
+        }
 
-        .ratio-separator {
-            font-size: 1.2rem;
-            align-self: center;
-        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
 
-        .radio-group {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            align-items: center;
-            height: 42px;
-        }
+        .radio-option:hover {
+            background: color-mix(in srgb, AccentColor 10%, transparent);
+        }
 
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: background-color 0.2s;
-        }
+        .radio-option input[type="radio"] {
+            margin: 0;
+            cursor: pointer;
+        }
 
-        .radio-option:hover {
-            background: color-mix(in srgb, AccentColor 10%, transparent);
-        }
+        .radio-option label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+        }
 
-        .radio-option input[type="radio"] {
-            margin: 0;
-            cursor: pointer;
-        }
+        .window-settings {
+            transition: opacity 0.3s, height 0.3s;
+        }
 
-        .radio-option label {
-            margin: 0;
-            cursor: pointer;
-            font-weight: normal;
-        }
+        .window-settings.hidden {
+            opacity: 0.5;
+            pointer-events: none;
+        }
 
-        .window-settings {
-            transition: opacity 0.3s, height 0.3s;
-        }
+        /* DARK MODE */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #1c1b22;
+                color: #fbfbfe;
+            }
 
-        .window-settings.hidden {
-            opacity: 0.5;
-            pointer-events: none;
-        }
+            .card {
+                background: #2a2933;
+                border: 1px solid #444;
+            }
 
-        /* DARK MODE */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: #1c1b22;
-                color: #fbfbfe;
-            }
+            .size-display {
+                color: #bbb;
+            }
 
-            .card {
-                background: #2a2933;
-                border: 1px solid #444;
-            }
+            .ratio-inputs input {
+                background: #1c1b22;
+                border: 1px solid #555;
+                color: #fbfbfe;
+            }
 
-            .size-display {
-                color: #bbb;
-            }
-
-            input[type="range"] {
-                background: #444;
-            }
-
-            input[type="range"]::-webkit-slider-thumb {
-                background: #00ddff;
-            }
-
-            .ratio-inputs input {
-                background: #1c1b22;
-                border: 1px solid #555;
-                color: #fbfbfe;
-            }
-
-            .radio-option:hover {
-                background: color-mix(in srgb, AccentColor 10%, transparent);
-            }
-        }
-    </style>
+            .radio-option:hover {
+                background: color-mix(in srgb, AccentColor 10%, transparent);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container">
 
-        <!-- Language Selection -->
-        <div class="card" style="padding: 0px 16px;">
-            <div class="radio-group">
-                <div class="radio-option">
-                    <input type="radio" id="langFrench" name="language" value="french" checked>
-                    <label for="langFrench">Français</label>
-                </div>
-                <div class="radio-option">
-                    <input type="radio" id="langEnglish" name="language" value="english">
-                    <label for="langEnglish">English</label>
-                </div>
-            </div>
-        </div>
+        <!-- Language Selection -->
+        <div class="card" style="padding: 0px 16px;">
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="langFrench" name="language" value="french" checked>
+                    <label for="langFrench">Français</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="langEnglish" name="language" value="english">
+                    <label for="langEnglish">English</label>
+                </div>
+            </div>
+        </div>
 
-        <!-- Open Mode Selection -->
-        <div class="card" style="padding: 0px 16px;">
-            <div class="radio-group">
-                <div class="radio-option">
-                    <input type="radio" id="modeWindow" name="openMode" value="window" checked>
-                    <label for="modeWindow">Fenêtre</label>
-                </div>
-                <div class="radio-option">
-                    <input type="radio" id="modeTab" name="openMode" value="tab">
-                    <label for="modeTab">Onglet</label>
-                </div>
-            </div>
-        </div>
+        <!-- Open Mode Selection -->
+        <div class="card" style="padding: 0px 16px;">
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="modeWindow" name="openMode" value="window" checked>
+                    <label for="modeWindow">Fenêtre</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="modeTab" name="openMode" value="tab">
+                    <label for="modeTab">Onglet</label>
+                </div>
+            </div>
+        </div>
 
-        <!-- Window Settings -->
-        <div class="window-settings" id="windowSettings">
-            <!-- Window Size -->
-            <div class="card">
-                <div class="label-row">
-                    <label for="windowSize">Taille de la fenêtre (% de l'écran)</label>
-                    <div class="size-display" id="sizeDisplay">50%</div>
-                </div>
-                <input type="range" id="windowSize" min="0" max="100" value="50">
-            </div>
+        <!-- Window Settings -->
+        <div class="window-settings" id="windowSettings">
+            <!-- Window Size -->
+            <div class="card">
+                <div class="label-row">
+                    <label for="windowSize">Taille de la fenêtre (% de l'écran)</label>
+                    <div id="sizeDisplay">50%</div>
+                </div>
+                <input type="range" id="windowSize" min="0" max="100" value="50">
+            </div>
 
-            <!-- Aspect Ratio -->
-            <div class="card">
-                <label>Rapport d'aspect (largeur : hauteur)</label>
-                <div class="ratio-inputs">
-                    <input type="number" id="aspectWidth" min="1" step="1" value="1">
-                    <span class="ratio-separator">:</span>
-                    <input type="number" id="aspectHeight" min="1" step="1" value="1">
-                </div>
-            </div>
-        </div>
+            <!-- Aspect Ratio -->
+            <div class="card">
+                <label>Rapport d'aspect (largeur : hauteur)</label>
+                <div class="ratio-inputs">
+                    <input type="number" id="aspectWidth" min="1" step="1" value="1">
+                    <span class="ratio-separator">:</span>
+                    <input type="number" id="aspectHeight" min="1" step="1" value="1">
+                </div>
+            </div>
+        </div>
 
-        <!-- Info -->
-        <div class="card" style="text-align: center; padding: 12px;">
-            Les modifications s'appliquent immédiatement.
-        </div>
-    </div>
+        <!-- Info -->
+        <div class="card" style="text-align: center; padding: 12px;">
+            Les modifications s'appliquent immédiatement.
+        </div>
+    </div>
 
-    <script src="options.js"></script>
+    <script src="options.js"></script>
 </body>
 
 </html>
