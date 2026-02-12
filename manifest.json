@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.0.1",
+  "version": "1.0.3",
   "name": "Le Robert",
   "description": "Sélectionnez un mot pour rechercher sa définition dans Le Robert.",
   "author": "Nhân Trí",
@@ -23,10 +23,20 @@
     "contextMenus",
     "storage"
   ],
+  "chrome_settings_overrides": {
+    "search_provider": {
+      "name": "Le Robert",
+      "search_url": "https://dictionnaire.lerobert.com/definition/{searchTerms}",
+      "keyword": "@lerobert",
+      "favicon_url": "icon.png",
+      "is_default": false
+    }
+  },
   "browser_specific_settings": {
     "gecko": {
       "id": "{29729b59-145a-4d87-a37b-c41d0960215c}",
-      "strict_min_version": "109.0"
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {"required": ["none"]}
     }
   }
 }
