@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "name": "Le Robert",
   "description": "Sélectionnez un mot pour rechercher sa définition dans Le Robert.",
   "author": "Nhân Trí",
@@ -19,7 +19,6 @@
     "open_in_tab": false
   },
   "permissions": [
-    "activeTab",
     "contextMenus",
     "storage"
   ],
